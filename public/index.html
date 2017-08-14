@@ -35,7 +35,7 @@
                             <h3>Possible next letters</h3>
                             <span m-for="combination in possibilities">
                                 <i class="right chevron icon divider"></i>
-                                <a class="section">{{ combination }}</a>
+                                <a m-if="combination" class="section">{{ combination }}</a>
                             </span>
                         </div>
                     </div>

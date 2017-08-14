@@ -62,6 +62,7 @@ function trie_recurse( obj, key, val ) {
 */
 function search( root, search ) {
   search = search.toLowerCase();
+  app.set('possibilities', []);
   if (search) return search_recurse(root, search, []);
 }
 
@@ -69,20 +70,21 @@ function search( root, search ) {
   Recursive helper method to search the Trie
 */
 function search_recurse( obj, search, history ) {
-  history.push(search.slice(0, 1));
-  app.set('history', history);
-  // app.set('possibilities', Object.keys(obj[search.slice(0, 1)]));
-  if ( search.length == 1 ) {
+  // history.push(search.slice(0, 1));
+  // app.set('history', history);
+  if (search.length <= 1) {
     if ( obj[search] ) {
-      if ( obj[search].value ) {
+      if (obj[search].value) {
+        app.set('possibilities', Object.keys(obj[search]));
         return obj[search].value;
       }
     }
-    return 'hit a fucking wall';
   }
+
   let n = search.slice(0, 1);
   if (!obj[n]) {
     return 'hit a wall';
   }
+  app.set('possibilities', Object.keys(obj[n]));
   return search_recurse( obj[n], search.slice(1, search.length), history );
 }
