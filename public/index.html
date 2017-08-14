@@ -26,7 +26,7 @@
                         <div class="ui raised segment" m-if="search.length > 0">
                             <div class="ui breadcrumb">
                                 <span m-for="letter in history">
-                                    <a class="section">{{ letter }}</a>
+                                    <a m-if="letter" class="section">{{ letter }}</a>
                                     <i class="right chevron icon divider"></i>
                                 </span>
                             </div>

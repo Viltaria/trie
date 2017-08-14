@@ -70,8 +70,8 @@ function search( root, search ) {
   Recursive helper method to search the Trie
 */
 function search_recurse( obj, search, history ) {
-  // history.push(search.slice(0, 1));
-  // app.set('history', history);
+  history.push(search.slice(0, 1));
+  app.set('history', history);
   if (search.length <= 1) {
     if ( obj[search] ) {
       if (obj[search].value) {
