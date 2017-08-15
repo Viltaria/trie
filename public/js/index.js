@@ -16,6 +16,7 @@ $('.item.button')
 ;
 
 $.getJSON('new_dictionary.json', success);
+$.getJSON('public/new_dictionary.json', success);
 
 function success( data ) {
   const root = trie(data);
