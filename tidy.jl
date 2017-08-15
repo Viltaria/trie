@@ -12,7 +12,7 @@ open("dictionary.json", "r") do f
     dict = JSON.parse(readstring(f))
 end
 
-# Create a new dict to store the cleansed keys, while looping over the old dict
+# Create a new dict to store the cleansed keys while setting the new key
 obj = Dict()
 for word in dict
     key = lowercase(word[1])
@@ -20,7 +20,7 @@ for word in dict
     obj[key] = word[2]
 end
 
-# Write the data to the tidied file
+# Write the tidied data to the new file
 data = JSON.json(obj)
 open("new_dictionary.json", "w") do f
     write(f, data)

@@ -15,3 +15,13 @@
     margin-right: auto;
     width: /*whatever width you want*/;
 }
+
+.Site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.Site-content {
+  flex: 1;
+}

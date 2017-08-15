@@ -1,14 +1,19 @@
 const app = new Moon({
   el: "#app",
   data: {
-    title: "Save the Tries",
+    title: "Trie",
     loading: true,
     search: '',
     searchInfo: '',
     history: [],
-    possibilities: {}
+    possibilities: {},
+    using: "Webster's Unabridged Dictionary"
   }
 });
+
+$('.item.button')
+  .popup()
+;
 
 $.getJSON('new_dictionary.json', success);
 
@@ -80,10 +85,9 @@ function search_recurse( obj, search, history ) {
       }
     }
   }
-
   let n = search.slice(0, 1);
   if (!obj[n]) {
-    return 'hit a wall';
+    return "404 Word not found.";
   }
   app.set('possibilities', Object.keys(obj[n]));
   return search_recurse( obj[n], search.slice(1, search.length), history );
