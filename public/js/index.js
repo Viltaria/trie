@@ -81,7 +81,7 @@ function search_recurse( obj, search, history ) {
   if (search.length <= 1) {
     if ( obj[search] ) {
       if (obj[search].value) {
-        app.set('possibilities', Object.keys(obj[search]));
+        app.set('possibilities', Object.keys(obj[search]).sort());
         return obj[search].value;
       }
     }
@@ -90,6 +90,7 @@ function search_recurse( obj, search, history ) {
   if (!obj[n]) {
     return "404 Word not found.";
   }
-  app.set('possibilities', Object.keys(obj[n]));
+
+  app.set('possibilities', Object.keys(obj[n]).sort());
   return search_recurse( obj[n], search.slice(1, search.length), history );
 }
