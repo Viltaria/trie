@@ -15,6 +15,45 @@ $('.item.button')
   .popup()
 ;
 
+function handleFileSelect()
+{
+  if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
+    alert('The File APIs are not fully supported in this browser.');
+    return;
+  }
+
+  input = document.getElementById('file');
+  if (!input) {
+    alert("Um, couldn't find the file element.");
+  }
+  else if (!input.files) {
+    alert("This browser doesn't seem to support the `files` property of file inputs.");
+  }
+  else if (!input.files[0]) {
+    alert("Please select a file before clicking 'Load'");
+  }
+  else {
+    file = input.files[0];
+    fr = new FileReader();
+    fr.fileName = file.name;
+    fr.onload = receivedText;
+    fr.readAsText(file);
+  }
+}
+function receivedText() {
+  app.set('loading', true);
+  try {
+    success(JSON.parse(fr.result));
+    app.set('using', fr.fileName);
+  } catch (e) {
+    alert('Failed to parse JSON');
+  }
+}
+
+$("#file").change(function(){
+  handleFileSelect();
+ });
+
 $.getJSON('new_dictionary.json', success);
 $.getJSON('public/new_dictionary.json', success);
 
@@ -28,18 +67,22 @@ function success( data ) {
 }
 
 /*
-  Turns a non-nested JSON object into a Trie
+  Turns a JSON object into a Trie
 */
 function trie ( data ) {
   const root = {};
   for (key in data) {
     let val = data[key];
-    if (root[key.slice(0, 1)]) {
-      trie_recurse(root[key.slice(0, 1)], key.slice(1, key.length), val);
+    if (val !== null && typeof val === 'object') {
+      data[key] = trie(data[key]);
     } else {
-      const obj = {};
-      trie_recurse(obj, key.slice(1, key.length), val);
-      root[key.slice(0, 1)] = obj;
+      if (root[key.slice(0, 1)]) {
+        trie_recurse(root[key.slice(0, 1)], key.slice(1, key.length), val);
+      } else {
+        const obj = {};
+        trie_recurse(obj, key.slice(1, key.length), val);
+        root[key.slice(0, 1)] = obj;
+      }
     }
   }
   return root;
@@ -76,12 +119,12 @@ function search( root, search ) {
   Recursive helper method to search the Trie
 */
 function search_recurse( obj, search, history ) {
-  history.push(search.slice(0, 1));
-  app.set('history', history);
   if (search.length <= 1) {
     if ( obj[search] ) {
       if (obj[search].value) {
-        app.set('possibilities', Object.keys(obj[search]).sort());
+        history.push(search.slice(0, 1));
+        app.set('history', history);
+	app.set('possibilities', Object.keys(obj[search]).sort());
         return obj[search].value;
       }
     }
@@ -91,6 +134,8 @@ function search_recurse( obj, search, history ) {
     return "404 Word not found.";
   }
 
+  history.push(search.slice(0, 1));
+  app.set('history', history);
   app.set('possibilities', Object.keys(obj[n]).sort());
   return search_recurse( obj[n], search.slice(1, search.length), history );
 }

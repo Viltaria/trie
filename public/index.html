@@ -30,6 +30,13 @@
                               <div class="ui segment">
                                 Currently searching:
                                 <p> {{ using }} </p>
+                                Try it with your own JSON file:
+                                <div>
+                                    <label for="file" class="ui icon button">
+                                        <i class="file icon"></i>
+                                        Open File</label>
+                                    <input accept=".json" type="file" id="file" style="display:none">
+                                </div>
                               </div>
                             </div>
                             <div class="ui raised segment" m-if="search.length > 0">
@@ -60,15 +67,15 @@
         <div class="ui fluid three item menu">
             <a class="item button" data-position="top center" data-content="Tries are an efficient information retrieval data structure. Using tries, search complexities can be brought to optimal limit (key length).">
               What
-              <i class="dropdown icon"></i>
+              <i class="angle up icon"></i>
             </a>
             <a class="item button" data-position="top center" data-content="Tries allow you to insert and find strings in O(L) time (where L represent the length of a single word). They also allow you to find words that have a single character different, a prefix in common, a character missing, etc.">
               Why
-              <i class="dropdown icon"></i>
+              <i class="angle up icon"></i>
             </a>
             <a class="item button" data-position="top center" data-content="http://github.com/Viltaria">
               Who
-              <i class="dropdown icon"></i>
+              <i class="angle up icon"></i>
             </a>
         </div>
     </footer>
