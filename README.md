@@ -10,3 +10,4 @@ Tries allow you to insert and find strings in O(L) time (where L represent the l
 - [ ] Add Visual Hints
 - [ ] Add Possibilities for root level
 - [ ] Add total possibilities when you traverse the tree
+- [ ] Add linking a JSON file as well as uploading
