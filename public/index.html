@@ -22,7 +22,7 @@
                               <input id="search" type="text" placeholder="Start typing!">
                               <i class="search icon"></i>
                             </div>
-                            <div class="ui raised segment" m-if="search.length > 0">
+                            <div class="ui basic raised segment" m-if="search.length > 0">
                                 <h4 class="ui header">{{ search }}</h4>
                                 <p>{{ searchInfo }}</p>
                             </div>
@@ -37,9 +37,14 @@
                                         Open File</label>
                                     <input accept=".json" type="file" id="file" style="display:none">
                                 </div>
+                                <!-- <div>
+                                    <button id="download" class="ui basic button">
+                                        Download the Trieify'd JSON
+                                    </button>
+                                </div> -->
                               </div>
                             </div>
-                            <div class="ui raised segment" m-if="search.length > 0">
+                            <div class="ui basic raised segment" m-if="search.length > 0">
                                 <div class="ui breadcrumb">
                                     <span m-for="letter in history">
                                         <a m-if="letter" class="section">{{ letter }}</a>
@@ -47,7 +52,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="ui raised segment" m-if="possibilities.length > 0">
+                            <div class="ui basic raised segment" m-if="possibilities.length > 0">
                                 <h3>Possible next letters</h3>
                                 <span m-for="combination in possibilities">
                                     <span m-if="combination">
@@ -55,6 +60,8 @@
                                         <a class="section">{{ combination }}</a>
                                     </span>
                                 </span>
+                                <h3>Potential Combinations</h3>
+                                <a class="section">{{ possibilities_count  }}</a>
                             </div>
                         </div>
                     </div>
@@ -79,6 +86,8 @@
             </a>
         </div>
     </footer>
+
+    <a id="downloadAnchorElem" style="display:none"></a>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.js"></script>
